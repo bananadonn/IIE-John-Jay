@@ -1,0 +1,10 @@
+﻿input_text,model_1_sentiment_label,model_1_sentiment_score,model_2_zeroshot_label,model_2_zeroshot_score,model_3_ner_entities,model_4_groq_classification,notes,tested-at
+Unauthorized login from IP 198.51.100.4 at 3:47 AM — multiple failed attempts preceded this,NEGATIVE,0.9994,possible anomaly,0.9,{},HIGH: This alert is HIGH because the occurrence of multiple failed login attempts before a successful unauthorized login suggests a targeted attack attempting to compromise user credentials.,,2026-04-02 10:12pm
+Routine firewall rule update completed on fw-01 during scheduled maintenance window,NEGATIVE,0.9986,routine activity,1.0,{},"INFORMATIONAL
+
+This alert is informational because the routine firewall rule update is expected and occurred within a scheduled maintenance window, indicating that no issues or anomalies occurred.",,2026-04-02 10:11pm
+Phishing email detected targeting finance@company.com — spoofed sender domain,NEGATIVE,0.9968,possible anomaly,0.8,{},"HIGH: A phishing email targeting a sensitive email account such as finance@company.com, even if the sender domain appears spoofed, poses a significant risk of financial loss or data theft if the recipient falls victim.",,2026-04-02 10:11pm
+Multiple failed SSH authentication attempts from external IP — 47 attempts in 5 minutes,NEGATIVE,0.9993,possible anomaly,0.9,"{""entity_group"":""MISC"",""score"":0.99433726,""word"":""SS"",""start"":16,""end"":18}","**CRITICAL**
+
+This alert is critical because it indicates a potential brute-force attack on the SSH server, which could compromise its security and grant unauthorized access to the system.",,2026-04-02 10:12pm
+System resource utilization normal across all monitored hosts — no anomalies detected,NEGATIVE,0.9880,routine activity,1.0,{},"INFORMATIONAL: This alert indicates that system resources are functioning as expected, with no unusual activity detected, and no action is required.",,2026-04-02 10:11pm
