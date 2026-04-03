@@ -2,7 +2,8 @@
 
 **Name:** Donald Reith 
 **Date:** 2026-04-02  
-
+**Capstone Project** Threat Intelligence Hub
+**My Component** Feed Collector
 ---
 
 ## Test Setup
@@ -56,7 +57,7 @@ Zero-Shot classification was the most practical HuggingFace option — it return
 
 ## Recommended Models for My Capstone Component
 
-**Component:** [Your capstone component name]
+**Component:** Feed Collector
 
 **Primary model:** Groq Llama 3.1 8B Instant — produces nuanced severity classifications (CRITICAL/HIGH/MEDIUM/LOW/INFORMATIONAL) with human-readable reasoning, making it the most directly useful model for security alert triage.
 
