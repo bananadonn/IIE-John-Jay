@@ -1,0 +1,120 @@
+MITRE ATT&CK - Initial Access (TA0001)
+======================================
+
+Initial Access consists of techniques that use various entry vectors to gain their initial foothold within a network. Techniques used to gain a foothold include targeted spearphishing and exploiting weaknesses on public-facing web servers. Footholds gained through initial access may allow for continued access, like valid accounts and use of external remote services, or may be limited-use due to changing passwords.
+
+---
+
+T1189 - Drive-by Compromise
+-----------------------------
+Description:
+Adversaries may gain access to a system through a user visiting a website over the normal course of browsing. With this technique, the user's web browser is typically targeted for exploitation, but adversaries may also use compromised websites for non-exploitation behavior such as acquiring application access tokens.
+
+Multiple ways of delivering exploit code to a browser exist, including a legitimate website that has been compromised, traffic injection where network appliances are used to inject malware into traffic, and malicious advertisements distributed through advertising networks (malvertising).
+
+Procedure Examples:
+- APT38 has used watering hole attacks to gain initial access to victims.
+- Lazarus Group has performed drive-by attacks on websites frequented by their targets.
+- FIN7 used drive-by attacks to compromise victims by redirecting them to malicious websites hosting exploit kits.
+
+Mitigations:
+- Application Isolation and Sandboxing: Browser sandboxes can be used to mitigate some of the impact of exploitation.
+- Exploit Protection: Security applications that look for behavior used during exploitation such as Windows Defender Exploit Guard (WDEG).
+- Restrict Web-Based Content: Block or restrict potentially dangerous JavaScript or other content.
+- Update Software: Ensure browsers and plugins are kept updated to take advantage of latest vulnerability patches.
+
+---
+
+T1190 - Exploit Public-Facing Application
+-------------------------------------------
+Description:
+Adversaries may attempt to exploit a weakness in an Internet-facing host or system to initially access a network. The weakness in the system can be a software bug, a temporary glitch, or a misconfiguration.
+
+Exploited applications are often websites/web servers, but can also include databases (like SQL), standard services (like SMB or SSH), network device administration and management protocols (like SNMP and Smart Install), and any other system with Internet accessible open sockets. Depending on the flaw being exploited this may also involve Exploitation for Defense Evasion.
+
+Procedure Examples:
+- APT28 exploited a vulnerability in Cisco routers to gain access to targeted networks.
+- APT29 exploited vulnerabilities in public-facing applications such as Microsoft Exchange.
+- Hafnium exploited multiple zero-day vulnerabilities in Microsoft Exchange Server including CVE-2021-26855.
+
+Mitigations:
+- Application Isolation and Sandboxing: Segment externally facing servers and services from the rest of the network.
+- Exploit Protection: Web Application Firewalls may be used to limit exposure of applications.
+- Network Segmentation: Segment externally facing servers and services from the rest of the network.
+- Update Software: Regularly patch and update software to reduce the number of exploitable vulnerabilities.
+- Vulnerability Scanning: Routinely check for vulnerabilities in Internet-facing systems.
+
+---
+
+T1566 - Phishing
+-----------------
+Description:
+Adversaries may send phishing messages to gain access to victim systems. All forms of phishing are electronically delivered social engineering. Phishing can be targeted, known as spearphishing. In spearphishing, a specific individual, company, or industry will be targeted by the adversary. More generally, adversaries can conduct non-targeted phishing, such as in mass malware spam campaigns.
+
+Adversaries may send victims emails containing malicious attachments or links, typically to execute malicious code on victim systems. Phishing may also be conducted via third-party services like social media platforms.
+
+Sub-techniques:
+T1566.001 - Spearphishing Attachment:
+Adversaries may send spearphishing emails with a malicious attachment in an attempt to gain access to victim systems. Spearphishing attachment is a specific variant of spearphishing. Spearphishing attachment is different from other forms of spearphishing in that it employs the use of malware attached to an email.
+
+T1566.002 - Spearphishing Link:
+Adversaries may send spearphishing emails with a malicious link in an attempt to gain access to victim systems. Spearphishing link is a specific variant of spearphishing. It is different from other forms of spearphishing in that it employs the use of links to download malware contained in email, instead of attaching malicious files to the email itself.
+
+T1566.003 - Spearphishing via Service:
+Adversaries may send spearphishing messages via third-party services in an attempt to gain access to victim systems. Spearphishing via service is a specific variant of spearphishing. It is different from other forms of spearphishing in that it employs the use of third party services rather than directly via enterprise email channels.
+
+Procedure Examples:
+- APT1 sent spearphishing emails with malicious attachments to compromise target systems.
+- APT28 used spearphishing emails with malicious attachments including Word documents exploiting CVE-2017-0262.
+- Emotet was delivered through phishing emails containing malicious Word documents with macros.
+- FIN7 conducted spearphishing campaigns with malicious attachments to compromise point-of-sale systems.
+
+Mitigations:
+- Anti-Spoofing: Use anti-spoofing and email authentication mechanisms such as DMARC, DKIM, and SPF.
+- Network Intrusion Prevention: Use network intrusion detection/prevention systems to detect and block phishing attempts.
+- Restrict Web-Based Content: Block unknown or malicious files from being downloaded.
+- Security Awareness Training: Train users to identify and report phishing attempts.
+- User Account Management: Check email headers to verify the origin of the message.
+
+---
+
+T1078 - Valid Accounts
+------------------------
+Description:
+Adversaries may obtain and abuse credentials of existing accounts as a means of gaining Initial Access, Persistence, Privilege Escalation, or Defense Evasion. Compromised credentials may be used to bypass access controls placed on various resources on systems within the network and may even be used for persistent access to remote systems and externally available services, such as VPNs, Outlook Web Access, network devices, and remote desktop.
+
+Compromised credentials may also grant an adversary increased privilege to specific systems or access to restricted areas of the network. Adversaries may choose not to use malware or tools during an intrusion to make it harder to detect their presence.
+
+Sub-techniques:
+T1078.001 - Default Accounts: Adversaries may obtain and abuse credentials of a default account as a means of gaining initial access.
+T1078.002 - Domain Accounts: Adversaries may obtain and abuse credentials of a domain account as a means of gaining initial access.
+T1078.003 - Local Accounts: Adversaries may obtain and abuse credentials of a local account as a means of gaining initial access.
+T1078.004 - Cloud Accounts: Adversaries may obtain and abuse credentials of a cloud account as a means of gaining initial access.
+
+Procedure Examples:
+- APT18 used valid accounts to maintain access to victim environments.
+- APT28 used credentials stolen from spearphishing attacks to access victim accounts.
+- Carbanak used valid accounts to maintain persistence in victim networks.
+
+Mitigations:
+- Account Use Policies: Configure features related to account use like login attempt lockouts.
+- Active Directory Configuration: Manage the AD infrastructure to reduce risk from compromised accounts.
+- Multi-factor Authentication: Use MFA to make it harder for adversaries to use compromised credentials.
+- Password Policies: Enforce strong password policies to reduce effectiveness of credential theft.
+- Privileged Account Management: Manage the creation, modification, use, and permissions associated to privileged accounts.
+
+---
+
+T1195 - Supply Chain Compromise
+---------------------------------
+Description:
+Adversaries may manipulate products or product delivery mechanisms prior to receipt by a final consumer for the purpose of data or system compromise. Supply chain compromises can take place at any stage of the supply chain including manipulation of development tools, build processes, source code repositories, or open-source dependency repositories.
+
+Procedure Examples:
+- APT41 performed supply chain attacks to compromise software build systems.
+- SolarWinds attack involved the compromise of the software build process to insert malicious code into the Orion software update.
+
+Mitigations:
+- Vulnerability Scanning: Scan systems for vulnerabilities introduced through supply chain compromise.
+- Code Signing: Ensure that code is validated and signed to verify the integrity of software.
+- Update Software: Ensure software updates come from verified sources.

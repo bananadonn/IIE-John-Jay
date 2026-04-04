@@ -1,0 +1,141 @@
+MITRE ATT&CK - Lateral Movement (TA0008)
+=========================================
+
+Lateral Movement consists of techniques that adversaries use to progressively move through an environment after gaining initial access. Moving through multiple systems helps adversaries reach their ultimate objective, often a high-value target such as sensitive data, critical infrastructure, or domain controllers. Adversaries might install their own remote access tools to accomplish Lateral Movement or use legitimate credentials with native network and operating system tools, which may be stealthier.
+
+---
+
+T1021 - Remote Services
+-------------------------
+Description:
+Adversaries may use Valid Accounts to log into a service specifically designed to accept remote connections, such as telnet, SSH, and VNC. The adversary may then perform actions as the logged-on user. Adversaries may also use credential access techniques to gain credentials for use with this technique.
+
+Sub-techniques:
+T1021.001 - Remote Desktop Protocol:
+Adversaries may use Valid Accounts to log into a computer using the Remote Desktop Protocol (RDP). The adversary may then perform actions as the logged-on user. Adversaries may also use RDP in conjunction with the Accessibility Features technique for Persistence.
+
+T1021.002 - SMB/Windows Admin Shares:
+Adversaries may use Valid Accounts to interact with a remote network share using Server Message Block (SMB). The adversary may then perform actions as the logged-on user.
+
+T1021.003 - Distributed Component Object Model:
+Adversaries may use Valid Accounts to interact with remote machines by taking advantage of Distributed Component Object Model (DCOM). The adversary may then perform actions as the logged-on user.
+
+T1021.004 - SSH:
+Adversaries may use Valid Accounts to log into remote machines using Secure Shell (SSH). The adversary may then perform actions as the logged-on user.
+
+T1021.005 - VNC:
+Adversaries may use Valid Accounts to remotely control machines using Virtual Network Computing (VNC). VNC is a platform-independent desktop sharing system.
+
+T1021.006 - Windows Remote Management:
+Adversaries may use Valid Accounts to interact with remote systems using Windows Remote Management (WinRM). The adversary may then perform actions as the logged-on user.
+
+Procedure Examples:
+- APT28 used RDP to move laterally through victim networks.
+- APT41 used RDP for lateral movement in victim environments.
+- FIN6 used RDP to move laterally in victim networks.
+- Lazarus Group used SSH to move laterally in targeted networks.
+
+Mitigations:
+- Disable or Remove Feature or Program: Disable unnecessary remote services.
+- Limit Access to Resource Over Network: Use firewall rules to limit RDP and other remote service access.
+- Multi-factor Authentication: Require MFA for remote service logins.
+- Network Segmentation: Segment networks to limit the ability to move laterally using remote services.
+- User Account Management: Limit the accounts that may use remote services.
+
+---
+
+T1550 - Use Alternate Authentication Material
+----------------------------------------------
+Description:
+Adversaries may use alternate authentication material, such as password hashes, Kerberos tickets, and application access tokens, in order to move laterally within an environment and bypass normal system access controls.
+
+Sub-techniques:
+T1550.001 - Application Access Token:
+Adversaries may use stolen application access tokens to bypass the typical authentication process and access restricted accounts, information, or services on remote systems. These tokens are typically stolen from users or services and used to authenticate to and leverage the permissions of that entity.
+
+T1550.002 - Pass the Hash:
+Adversaries may "pass the hash" using stolen password hashes to move laterally within an environment, bypassing normal system access controls. Pass the hash (PtH) is a method of authenticating as a user without having access to the user's cleartext password.
+
+T1550.003 - Pass the Ticket:
+Adversaries may "pass the ticket" using stolen Kerberos tickets to move laterally within an environment, bypassing normal system access controls. Pass the ticket (PtT) is a method of authenticating to a system using Kerberos tickets without having access to an account's password.
+
+T1550.004 - Web Session Cookie:
+Adversaries can use stolen session cookies to authenticate to web applications and services as an authenticated user without needing credentials.
+
+Procedure Examples:
+- APT28 used Pass the Hash techniques to move laterally within networks.
+- APT29 used stolen access tokens to access cloud resources.
+- Mimikatz can perform Pass the Hash attacks using extracted credential hashes.
+
+Mitigations:
+- Privileged Account Management: Limit the reuse of accounts across systems.
+- User Account Control: Limit the ability to perform Pass the Hash by disabling NTLM.
+- Update Software: Ensure systems are updated to address known Pass the Hash vulnerabilities.
+
+---
+
+T1534 - Internal Spearphishing
+--------------------------------
+Description:
+Adversaries may use internal spearphishing to gain access to additional information or exploit other users within the same organization after they already have access to accounts or systems within the environment. Internal spearphishing is multi-staged campaign where an adversary leverages phishing techniques to get a victim to maliciously click or open a resource along with nearly any other technique to exploit the victim.
+
+Procedure Examples:
+- APT29 used compromised Office 365 accounts to send internal spearphishing emails.
+- Emotet used compromised email accounts to send internal phishing messages that appeared to come from trusted senders.
+
+Mitigations:
+- Anti-Spoofing: Enable DMARC to detect and prevent internal spoofing.
+- Security Awareness Training: Train users to identify suspicious emails even from known senders.
+- User Account Management: Implement least privilege to limit scope of compromised accounts.
+
+---
+
+T1570 - Lateral Tool Transfer
+-------------------------------
+Description:
+Adversaries may transfer tools or other files between systems in a compromised environment. Once brought into the victim environment (i.e., Ingress Tool Transfer) files may then be copied from one system to another to stage adversary tools or other files over the course of an operation.
+
+Procedure Examples:
+- APT28 used tools like robocopy to transfer files between systems in a compromised environment.
+- FIN7 transferred tools between systems using Windows built-in utilities.
+
+Mitigations:
+- Network Intrusion Prevention: Use network signatures to identify tools commonly used for lateral movement.
+- Network Segmentation: Segment networks to limit ability to transfer tools between systems.
+
+---
+
+T1080 - Taint Shared Content
+------------------------------
+Description:
+Adversaries may deliver payloads to remote systems by adding content to shared storage locations, such as network drives or internal code repositories. Content stored on network drives or in other shared locations may be tainted by adding malicious programs, scripts, or exploit code to otherwise valid files.
+
+Procedure Examples:
+- Net Crawler used shared network drives to spread malicious files laterally.
+- Shamoon spread by copying itself to network shares on the local network.
+
+Mitigations:
+- Execution Prevention: Prevent execution of files from network drives.
+- Restrict File and Directory Permissions: Limit write access to shared content locations.
+- Network Segmentation: Segment networks to limit access to shared content locations.
+
+---
+
+T1563 - Remote Service Session Hijacking
+------------------------------------------
+Description:
+Adversaries may take control of preexisting sessions with remote services to move laterally in an environment. Users may leverage these services to access other systems within the environment, which means preexisting connections may be hijacked by adversaries to gain access to those systems.
+
+Sub-techniques:
+T1563.001 - SSH Hijacking:
+Adversaries may hijack legitimate user SSH sessions to move laterally within an environment. SSH is typically used to access remote systems and transfer files. Active SSH sessions may be hijacked through malicious use of the ssh-agent.
+
+T1563.002 - RDP Hijacking:
+Adversaries may hijack legitimate user RDP sessions to move laterally within an environment. RDP is a common feature in operating systems. It allows a user to log into an interactive session with a system desktop graphical user interface on a remote system.
+
+Procedure Examples:
+- APT29 hijacked existing SSH connections to move laterally within victim environments.
+
+Mitigations:
+- Privileged Account Management: Do not allow users to share SSH agent sockets.
+- User Account Management: Limit users who can use remote desktop sessions.
